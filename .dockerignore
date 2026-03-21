@@ -1,0 +1,14 @@
+# Exclude everything except publish directory
+*
+!./bin/Release/AspNetCore/net9.0/publish
+!./bin/Release/Postgresql/bundles
+
+# Exclude windows and osx dependencies because we build Linux image.
+**/runtimes/osx*
+**/runtimes/win*
+
+# Exclude symbol files.
+**/*.pdb
+
+# Exclude overridden application settings.
+**/appsettings.*.json

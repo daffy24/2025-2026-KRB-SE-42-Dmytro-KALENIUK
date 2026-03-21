@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+
+.vs/
+.idea/
+bin/
+obj/
+coverage/
+packages/
+
+*.user
+
+nuget.config
+appsettings.Development.json

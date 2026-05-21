@@ -1,4 +1,4 @@
-﻿namespace Application.Modules.Common;
+﻿namespace Common.Models;
 
 /// <summary>
 /// The subscription status.

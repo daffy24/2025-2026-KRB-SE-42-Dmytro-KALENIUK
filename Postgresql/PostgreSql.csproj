@@ -8,9 +8,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Application\Application.csproj" />
+      <ProjectReference Include="..\Data\Data.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Configurations\" />
       <Folder Include="Migrations\" />
     </ItemGroup>
 

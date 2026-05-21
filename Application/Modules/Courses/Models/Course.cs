@@ -1,4 +1,5 @@
 ﻿using Application.Modules.Lessons.Models;
+using Common.Models;
 
 namespace Application.Modules.Courses.Models;
 
@@ -47,6 +48,11 @@ public sealed class Course
     /// </summary>
     public IEnumerable<string> Tags { get; init; } = [];
 
+    /// <summary>
+    /// The current status of the course.
+    /// </summary>
+    public PublicationStatus Status { get; init; }
+    
     /// <summary>
     /// Number of subscribers enrolled in the course.
     /// </summary>

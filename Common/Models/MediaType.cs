@@ -1,4 +1,4 @@
-﻿namespace Application.Modules.Common;
+﻿namespace Common.Models;
 
 /// <summary>
 /// Represents the type of media used in a lesson.

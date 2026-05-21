@@ -1,4 +1,5 @@
-﻿using Application.Modules.Common;
+﻿
+using Common.Models;
 
 namespace Application.Modules.Lessons.Models;
 

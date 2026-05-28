@@ -12,10 +12,22 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
+      <PackageReference Include="MediatR" Version="14.1.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.4">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Modules\Courses\DeleteCourse\" />
+      <Folder Include="Modules\Courses\GetCourseById\" />
+      <Folder Include="Modules\Courses\GetCourses\" />
+      <Folder Include="Modules\Creators\" />
+      <Folder Include="Modules\Lessons\" />
+      <Folder Include="Modules\Students\" />
+      <Folder Include="Modules\Subscriptions\" />
     </ItemGroup>
 
 </Project>

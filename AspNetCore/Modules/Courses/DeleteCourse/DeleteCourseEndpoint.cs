@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Modules.Courses.Requests;
+using EducationPlatform.Authentication;
 using EducationPlatform.Extensions;
 using EducationPlatform.Modules;
 using MediatR;
@@ -22,7 +23,7 @@ internal sealed class DeleteCourseEndpoint : IEndpoint
             .WithName("DeleteCourse")
             .WithTags("Courses")
             .WithSummary("Delete course")
-            .RequireAuthorization();
+            .RequireAuthorization(AuthPolicies.CreatorOnly);
     }
 
     private static async Task<Results<NoContent, NotFound>> Handle(
@@ -31,7 +32,7 @@ internal sealed class DeleteCourseEndpoint : IEndpoint
         IMediator mediator,
         CancellationToken cancellationToken)
     {
-        var request = new DeleteCourseRequest(courseId, creator.GetRequiredUserId());
+        var request = new DeleteCourseRequest(courseId, creator.GetRequiredUserId(), creator.IsInRole("admin"));
         var deleted = await mediator.Send(request, cancellationToken);
 
         return deleted

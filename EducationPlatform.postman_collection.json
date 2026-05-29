@@ -1,0 +1,902 @@
+﻿{
+    "info":  {
+                 "_postman_id":  "b239aa59-4049-4d8d-a5b7-6f8fb6b468d9",
+                 "name":  "EducationPlatform API",
+                 "description":  "Test requests for the EducationPlatform API with Keycloak OAuth2 Authorization Code with PKCE.",
+                 "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+             },
+    "variable":  [
+                     {
+                         "key":  "baseUrl",
+                         "value":  "http://localhost:5045",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "courseId",
+                         "value":  "00000000-0000-0000-0000-000000000000",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "lessonId",
+                         "value":  "00000000-0000-0000-0000-000000000000",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "keycloakUrl",
+                         "value":  "http://localhost:8080",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "keycloakRealm",
+                         "value":  "Education platform",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "keycloakPostmanClientId",
+                         "value":  "education-postman",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "keycloakUsername",
+                         "value":  "test-creator",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "keycloakPassword",
+                         "value":  "test",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "accessToken",
+                         "value":  "",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "refreshToken",
+                         "value":  "",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "keycloakApiClientId",
+                         "value":  "education-api",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "subscriptionCourseId",
+                         "value":  "00000000-0000-0000-0000-000000000000",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "subscriptionId",
+                         "value":  "",
+                         "type":  "string"
+                     }
+                 ],
+    "item":  [
+                 {
+                     "name":  "Auth",
+                     "item":  [
+                                  {
+                                      "name":  "OpenID Configuration",
+                                      "request":  {
+                                                      "auth":  {
+                                                                   "type":  "noauth"
+                                                               },
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{keycloakUrl}}/realms/{{keycloakRealm}}/.well-known/openid-configuration",
+                                                                  "host":  [
+                                                                               "{{keycloakUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "realms",
+                                                                               "{{keycloakRealm}}",
+                                                                               ".well-known",
+                                                                               "openid-configuration"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Get Token by Password",
+                                      "request":  {
+                                                      "auth":  {
+                                                                   "type":  "noauth"
+                                                               },
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/x-www-form-urlencoded"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "urlencoded",
+                                                                   "urlencoded":  [
+                                                                                      {
+                                                                                          "key":  "grant_type",
+                                                                                          "value":  "password",
+                                                                                          "type":  "text"
+                                                                                      },
+                                                                                      {
+                                                                                          "key":  "client_id",
+                                                                                          "value":  "{{keycloakPostmanClientId}}",
+                                                                                          "type":  "text"
+                                                                                      },
+                                                                                      {
+                                                                                          "key":  "username",
+                                                                                          "value":  "{{keycloakUsername}}",
+                                                                                          "type":  "text"
+                                                                                      },
+                                                                                      {
+                                                                                          "key":  "password",
+                                                                                          "value":  "{{keycloakPassword}}",
+                                                                                          "type":  "text"
+                                                                                      },
+                                                                                      {
+                                                                                          "key":  "scope",
+                                                                                          "value":  "openid profile email",
+                                                                                          "type":  "text"
+                                                                                      }
+                                                                                  ]
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{keycloakUrl}}/realms/{{keycloakRealm}}/protocol/openid-connect/token",
+                                                                  "host":  [
+                                                                               "{{keycloakUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "realms",
+                                                                               "{{keycloakRealm}}",
+                                                                               "protocol",
+                                                                               "openid-connect",
+                                                                               "token"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});",
+                                                                                    "",
+                                                                                    "const json = pm.response.json();",
+                                                                                    "if (json.access_token) {",
+                                                                                    "  pm.collectionVariables.set(\"accessToken\", json.access_token);",
+                                                                                    "}",
+                                                                                    "if (json.refresh_token) {",
+                                                                                    "  pm.collectionVariables.set(\"refreshToken\", json.refresh_token);",
+                                                                                    "}"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  }
+                              ],
+                     "auth":  {
+                                  "type":  "noauth"
+                              }
+                 },
+                 {
+                     "name":  "Health",
+                     "item":  [
+                                  {
+                                      "name":  "Health Check",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               ""
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  }
+                              ],
+                     "auth":  {
+                                  "type":  "noauth"
+                              }
+                 },
+                 {
+                     "name":  "Courses",
+                     "item":  [
+                                  {
+                                      "name":  "List Courses",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Create Course",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"name\": \"C# Basics\",\n  \"summary\": \"Introductory C# course.\",\n  \"description\": \"A practical beginner course covering syntax, types, methods and basic OOP.\",\n  \"language\": \"uk-UA\",\n  \"price\": 199.99,\n  \"tags\": [\"csharp\", \"dotnet\", \"beginner\"],\n  \"status\": 0\n}"
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 201\", function () {",
+                                                                                    "  pm.response.to.have.status(201);",
+                                                                                    "});",
+                                                                                    "",
+                                                                                    "const json = pm.response.json();",
+                                                                                    "const courseId = json.data || json.Data;",
+                                                                                    "if (courseId) {",
+                                                                                    "  pm.collectionVariables.set(\"courseId\", courseId);",
+                                                                                    "}"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Get Course",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{courseId}}",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{courseId}}"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Course Not Found",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/00000000-0000-0000-0000-000000000001",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "00000000-0000-0000-0000-000000000001"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 404\", function () {",
+                                                                                    "  pm.response.to.have.status(404);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Invalid Course",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"name\": \"A\",\n  \"summary\": \"\",\n  \"description\": \"Invalid course payload.\",\n  \"language\": \"uk-UA\",\n  \"price\": -1,\n  \"tags\": [\"valid\", \"\"],\n  \"status\": 0\n}"
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Delete Course",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{courseId}}",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{courseId}}"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 204 or 404\", function () {",
+                                                                                    "  pm.expect([204, 404]).to.include(pm.response.code);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  }
+                              ],
+                     "auth":  {
+                                  "type":  "bearer",
+                                  "bearer":  [
+                                                 {
+                                                     "key":  "token",
+                                                     "value":  "{{accessToken}}",
+                                                     "type":  "string"
+                                                 }
+                                             ]
+                              }
+                 },
+                 {
+                     "name":  "Subscriptions",
+                     "item":  [
+                                  {
+                                      "name":  "Subscribe to Course",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{subscriptionCourseId}}/subscriptions",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{subscriptionCourseId}}",
+                                                                               "subscriptions"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 201\", function () {",
+                                                                                    "  pm.response.to.have.status(201);",
+                                                                                    "});",
+                                                                                    "",
+                                                                                    "const json = pm.response.json();",
+                                                                                    "const subscriptionId = json.id || json.Id;",
+                                                                                    "if (subscriptionId) {",
+                                                                                    "  pm.collectionVariables.set(\"subscriptionId\", subscriptionId);",
+                                                                                    "}",
+                                                                                    "",
+                                                                                    "pm.test(\"Subscription contains course id\", function () {",
+                                                                                    "  pm.expect(json.courseId || json.CourseId).to.eql(pm.collectionVariables.get(\"subscriptionCourseId\"));",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "List My Subscriptions",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/subscriptions",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "subscriptions"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});",
+                                                                                    "",
+                                                                                    "pm.test(\"Response is an array\", function () {",
+                                                                                    "  pm.expect(pm.response.json()).to.be.an(\"array\");",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Subscribe Again Conflict",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{subscriptionCourseId}}/subscriptions",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{subscriptionCourseId}}",
+                                                                               "subscriptions"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 409\", function () {",
+                                                                                    "  pm.response.to.have.status(409);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Subscribe Missing Course",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/00000000-0000-0000-0000-000000000001/subscriptions",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "00000000-0000-0000-0000-000000000001",
+                                                                               "subscriptions"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 404\", function () {",
+                                                                                    "  pm.response.to.have.status(404);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  }
+                              ],
+                     "auth":  {
+                                  "type":  "bearer",
+                                  "bearer":  [
+                                                 {
+                                                     "key":  "token",
+                                                     "value":  "{{accessToken}}",
+                                                     "type":  "string"
+                                                 }
+                                             ]
+                              }
+                 },
+                 {
+                     "name":  "Lessons",
+                     "item":  [
+                                  {
+                                      "name":  "List Lessons",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{courseId}}/lessons",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{courseId}}",
+                                                                               "lessons"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Create Lesson",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"name\": \"Variables and Types\",\n  \"summary\": \"Basic variables and primitive types.\",\n  \"description\": \"This lesson explains variable declarations, primitive types and common conversion cases.\",\n  \"status\": 0,\n  \"duration\": \"00:15:00\",\n  \"mediaType\": 2\n}"
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{courseId}}/lessons",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{courseId}}",
+                                                                               "lessons"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 201\", function () {",
+                                                                                    "  pm.response.to.have.status(201);",
+                                                                                    "});",
+                                                                                    "",
+                                                                                    "const json = pm.response.json();",
+                                                                                    "const lessonId = json.data || json.Data;",
+                                                                                    "if (lessonId) {",
+                                                                                    "  pm.collectionVariables.set(\"lessonId\", lessonId);",
+                                                                                    "}"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Get Lesson",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/lessons/{{lessonId}}",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "lessons",
+                                                                               "{{lessonId}}"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Lesson Not Found",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/lessons/00000000-0000-0000-0000-000000000001",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "lessons",
+                                                                               "00000000-0000-0000-0000-000000000001"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 404\", function () {",
+                                                                                    "  pm.response.to.have.status(404);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Invalid Lesson",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "raw",
+                                                                   "raw":  "{\n  \"name\": \"A\",\n  \"summary\": \"\",\n  \"description\": \"Invalid lesson payload.\",\n  \"status\": 0,\n  \"duration\": \"00:00:00\",\n  \"mediaType\": 2\n}"
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{courseId}}/lessons",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{courseId}}",
+                                                                               "lessons"
+                                                                           ]
+                                                              }
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Delete Lesson",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/lessons/{{lessonId}}",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "lessons",
+                                                                               "{{lessonId}}"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 204 or 404\", function () {",
+                                                                                    "  pm.expect([204, 404]).to.include(pm.response.code);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  }
+                              ],
+                     "auth":  {
+                                  "type":  "bearer",
+                                  "bearer":  [
+                                                 {
+                                                     "key":  "token",
+                                                     "value":  "{{accessToken}}",
+                                                     "type":  "string"
+                                                 }
+                                             ]
+                              }
+                 }
+             ],
+    "auth":  {
+                 "type":  "oauth2",
+                 "oauth2":  [
+                                {
+                                    "key":  "tokenName",
+                                    "value":  "Keycloak Login",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "grant_type",
+                                    "value":  "authorization_code_with_pkce",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "authUrl",
+                                    "value":  "{{keycloakUrl}}/realms/{{keycloakRealm}}/protocol/openid-connect/auth",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "accessTokenUrl",
+                                    "value":  "{{keycloakUrl}}/realms/{{keycloakRealm}}/protocol/openid-connect/token",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "refreshTokenUrl",
+                                    "value":  "{{keycloakUrl}}/realms/{{keycloakRealm}}/protocol/openid-connect/token",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "callbackUrl",
+                                    "value":  "https://oauth.pstmn.io/v1/callback",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "clientId",
+                                    "value":  "{{keycloakPostmanClientId}}",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "clientSecret",
+                                    "value":  "",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "scope",
+                                    "value":  "openid profile email",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "state",
+                                    "value":  "",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "client_authentication",
+                                    "value":  "body",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "challengeAlgorithm",
+                                    "value":  "S256",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "addTokenTo",
+                                    "value":  "header",
+                                    "type":  "string"
+                                },
+                                {
+                                    "key":  "headerPrefix",
+                                    "value":  "Bearer",
+                                    "type":  "string"
+                                }
+                            ]
+             }
+}

@@ -22,7 +22,8 @@ internal sealed class GetCourseByIdEndpoint : IEndpoint
         return app.MapGet("/courses/{courseId:guid}", Handle)
             .WithName(Name)
             .WithTags("Courses")
-            .WithSummary("Get course by id");
+            .WithSummary("Get course by id")
+            .RequireAuthorization();
     }
 
     private static async Task<Results<Ok<Course>, NotFound>> Handle(

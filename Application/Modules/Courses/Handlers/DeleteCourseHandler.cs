@@ -10,8 +10,12 @@ internal sealed class DeleteCourseHandler(EducationDbContext dbContext)
 {
     public async Task<bool> Handle(DeleteCourseRequest request, CancellationToken cancellationToken)
     {
-        var entity = await dbContext.Courses
-            .FirstOrDefaultAsync(x => x.Id == request.CourseId && x.CreatorId == request.CreatorId, cancellationToken);
+        var query = dbContext.Courses.Where(x => x.Id == request.CourseId);
+
+        if (!request.CanManageAllCourses)
+            query = query.Where(x => x.CreatorId == request.UserId);
+
+        var entity = await query.FirstOrDefaultAsync(cancellationToken);
 
         if (entity is null)
             return false;

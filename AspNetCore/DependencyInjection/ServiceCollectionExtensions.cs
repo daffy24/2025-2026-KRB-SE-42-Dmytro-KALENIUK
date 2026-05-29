@@ -4,10 +4,13 @@ using EducationPlatform.Modules.Courses.AddCourse;
 using EducationPlatform.Modules.Courses.DeleteCourse;
 using EducationPlatform.Modules.Courses.GetCourseById;
 using EducationPlatform.Modules.Courses.GetCourses;
+using EducationPlatform.Modules.Courses.UpdateCourse;
 using EducationPlatform.Modules.Lessons.AddLesson;
 using EducationPlatform.Modules.Lessons.DeleteLesson;
 using EducationPlatform.Modules.Lessons.GetLessonById;
 using EducationPlatform.Modules.Lessons.GetLessons;
+using EducationPlatform.Modules.Subscriptions.AddSubscription;
+using EducationPlatform.Modules.Subscriptions.GetSubscriptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,13 +28,18 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IEndpoint, GetCoursesEndpoint>();
         services.AddSingleton<IEndpoint, GetCourseByIdEndpoint>();
         services.AddSingleton<IEndpoint, DeleteCourseEndpoint>();
+        services.AddSingleton<IEndpoint, UpdateCourseEndpoint>();
 
         services.AddSingleton<IEndpoint, AddLessonEndpoint>();
         services.AddSingleton<IEndpoint, GetLessonsEndpoint>();
         services.AddSingleton<IEndpoint, GetLessonByIdEndpoint>();
         services.AddSingleton<IEndpoint, DeleteLessonEndpoint>();
 
+        services.AddSingleton<IEndpoint, AddSubscriptionEndpoint>();
+        services.AddSingleton<IEndpoint, GetSubscriptionsEndpoint>();
+
         services.AddScoped<IValidator<AddCourseRequest>, AddCourseRequestValidator>();
+        services.AddScoped<IValidator<UpdateCourseRequest>, UpdateCourseRequestValidator>();
         services.AddScoped<IValidator<AddLessonRequest>, AddLessonRequestValidator>();
 
         return services;

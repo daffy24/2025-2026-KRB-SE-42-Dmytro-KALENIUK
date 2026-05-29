@@ -19,7 +19,8 @@ internal sealed class GetCoursesEndpoint : IEndpoint
         return app.MapGet("/courses", Handle)
             .WithName("GetCourses")
             .WithTags("Courses")
-            .WithSummary("Get courses");
+            .WithSummary("Get courses")
+            .RequireAuthorization();
     }
 
     private static async Task<Ok<IReadOnlyCollection<Course>>> Handle(

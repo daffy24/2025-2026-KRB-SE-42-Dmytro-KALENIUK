@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Modules.Lessons.Models;
+using EducationPlatform.Authentication;
 using EducationPlatform.Extensions;
 using EducationPlatform.Modules;
 using EducationPlatform.Modules.Lessons.GetLessonById;
@@ -24,7 +25,7 @@ internal sealed class AddLessonEndpoint : IEndpoint
             .WithName("AddLesson")
             .WithTags("Lessons")
             .WithSummary("Add a new lesson")
-            .RequireAuthorization();
+            .RequireAuthorization(AuthPolicies.CreatorOnly);
     }
 
     private static async Task<CreatedAtRoute<AddLessonResponse>> Handle(

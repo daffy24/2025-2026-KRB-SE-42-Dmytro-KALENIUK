@@ -1,4 +1,5 @@
 using Application.DependencyInjection;
+using EducationPlatform.Authentication;
 using EducationPlatform.DependencyInjection;
 using EducationPlatform.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -11,8 +12,15 @@ var configuration = builder.Configuration;
 services.AddApplication();
 services.AddDbContext(configuration);
 services.AddEndpoints();
+services.AddEducationPlatformAuthentication(configuration, builder.Environment);
+services.AddEducationPlatformAuthorization();
 
 var app = builder.Build();
+
+await app.MigrateDatabaseAsync();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapGet("/", () => "Hello World!");
 app.MapEndpoints();

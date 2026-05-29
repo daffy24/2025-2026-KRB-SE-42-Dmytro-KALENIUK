@@ -18,6 +18,16 @@ public class EducationDbContext(DbContextOptions<EducationDbContext> options) : 
     /// </summary>
     public DbSet<LessonEntity> Lessons { get; set; }
 
+    /// <summary>
+    /// The data set to be used to operate with <see cref="SubscriptionEntity"/> entities.
+    /// </summary>
+    public DbSet<SubscriptionEntity> Subscriptions { get; set; }
+
+    /// <summary>
+    /// The data set to be used to operate with <see cref="CreatorEntity"/> entities.
+    /// </summary>
+    public DbSet<CreatorEntity> Creators { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EducationDbContext).Assembly);

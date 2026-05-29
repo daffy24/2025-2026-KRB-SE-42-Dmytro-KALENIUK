@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Modules.Lessons.Requests;
+using EducationPlatform.Authentication;
 using EducationPlatform.Extensions;
 using EducationPlatform.Modules;
 using MediatR;
@@ -22,7 +23,7 @@ internal sealed class DeleteLessonEndpoint : IEndpoint
             .WithName("DeleteLesson")
             .WithTags("Lessons")
             .WithSummary("Delete lesson")
-            .RequireAuthorization();
+            .RequireAuthorization(AuthPolicies.CreatorOnly);
     }
 
     private static async Task<Results<NoContent, NotFound>> Handle(

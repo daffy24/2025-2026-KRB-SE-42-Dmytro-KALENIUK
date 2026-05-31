@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Modules.Lessons.Models;
 using Application.Modules.Lessons.Requests;
+using EducationPlatform.Extensions;
 using EducationPlatform.Modules;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -21,17 +23,24 @@ internal sealed class GetLessonsEndpoint : IEndpoint
         return app.MapGet("/courses/{courseId:guid}/lessons", Handle)
             .WithName("GetLessons")
             .WithTags("Lessons")
-            .WithSummary("Get course lessons");
+            .WithSummary("Get course lessons")
+            .RequireAuthorization();
     }
 
-    private static async Task<Ok<IReadOnlyCollection<Lesson>>> Handle(
+    private static async Task<Results<Ok<IReadOnlyCollection<Lesson>>, NotFound, ForbidHttpResult>> Handle(
         [FromRoute] Guid courseId,
+        ClaimsPrincipal user,
         IMediator mediator,
         CancellationToken cancellationToken)
     {
-        var request = new GetLessonsRequest(courseId);
+        var request = new GetLessonsRequest(courseId, user.GetRequiredUserId(), user.IsInRole("admin"));
         var response = await mediator.Send(request, cancellationToken);
 
-        return TypedResults.Ok(response);
+        return response.Status switch
+        {
+            LessonAccessStatus.Success => TypedResults.Ok(response.Lessons),
+            LessonAccessStatus.Forbidden => TypedResults.Forbid(),
+            _ => TypedResults.NotFound(),
+        };
     }
 }

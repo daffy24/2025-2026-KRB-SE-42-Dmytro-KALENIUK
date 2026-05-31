@@ -10,6 +10,7 @@ public sealed record AddLessonCommand(
     string Name,
     string Summary,
     string Description,
+    string Text,
     PublicationStatus Status,
     TimeSpan Duration,
     MediaType MediaType) : IRequest<AddLessonResponse>;

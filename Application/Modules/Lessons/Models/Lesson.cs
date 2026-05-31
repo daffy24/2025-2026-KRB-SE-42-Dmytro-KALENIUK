@@ -14,6 +14,11 @@ public sealed class Lesson
     public Guid Id { get; init; }
 
     /// <summary>
+    /// The unique identifier of the course.
+    /// </summary>
+    public Guid? CourseId { get; init; }
+
+    /// <summary>
     /// The name of the lesson.
     /// </summary>
     public string Name { get; init; } = null!;
@@ -29,6 +34,11 @@ public sealed class Lesson
     public string Description { get; init; } = null!;
 
     /// <summary>
+    /// The lesson text content.
+    /// </summary>
+    public string Text { get; init; } = string.Empty;
+
+    /// <summary>
     /// The current status of the lesson.
     /// </summary>
     public PublicationStatus Status { get; init; }
@@ -42,6 +52,11 @@ public sealed class Lesson
     /// The type of media used for this lesson.
     /// </summary>
     public MediaType MediaType { get; init; }
+
+    /// <summary>
+    /// The URL of the protected lesson video endpoint.
+    /// </summary>
+    public string? VideoUrl { get; init; }
 
     /// <summary>
     /// The timestamp when the lesson was created.

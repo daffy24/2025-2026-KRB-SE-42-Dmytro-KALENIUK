@@ -43,6 +43,18 @@ public sealed class CourseEntity
     public string Description { get; set; } = null!;
 
     /// <summary>
+    /// The preview image file path.
+    /// </summary>
+    [Column("preview_image_path")]
+    public string? PreviewImagePath { get; set; }
+
+    /// <summary>
+    /// The preview image content type.
+    /// </summary>
+    [Column("preview_image_content_type")]
+    public string? PreviewImageContentType { get; set; }
+
+    /// <summary>
     /// The language of the course
     /// </summary>
     [Column("language")]
@@ -83,4 +95,10 @@ public sealed class CourseEntity
     /// </summary>
     [SuppressMessage("Usage", "CA2227:Collection properties should be read only")]
     public ICollection<SubscriptionEntity>? Subscriptions { get; set; }
+
+    /// <summary>
+    /// The list of course lessons.
+    /// </summary>
+    [SuppressMessage("Usage", "CA2227:Collection properties should be read only")]
+    public ICollection<LessonEntity>? Lessons { get; set; }
 }

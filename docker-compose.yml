@@ -48,9 +48,9 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
       ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=education;Username=postgres;Password=postgres
-      Authentication__Authority: http://localhost:8080/realms/education-platform
-      Authentication__MetadataAddress: http://keycloak:8080/realms/education-platform/.well-known/openid-configuration
-      Authentication__Issuer: http://localhost:8080/realms/education-platform
+      Authentication__Authority: http://localhost:8080/realms/Education%20platform
+      Authentication__MetadataAddress: http://keycloak:8080/realms/Education%20platform/.well-known/openid-configuration
+      Authentication__Issuer: http://localhost:8080/realms/Education%20platform
       Authentication__Audience: education-api
       Authentication__RequireHttpsMetadata: "false"
       Authentication__UseDevelopmentAuth: "false"

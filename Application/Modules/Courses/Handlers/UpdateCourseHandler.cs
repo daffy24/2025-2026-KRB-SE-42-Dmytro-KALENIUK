@@ -39,6 +39,7 @@ internal sealed class UpdateCourseHandler(EducationDbContext dbContext)
             Name = entity.Name,
             Summary = entity.Summary,
             Description = entity.Description,
+            PreviewImageUrl = entity.PreviewImagePath == null ? null : $"/courses/{entity.Id}/preview-image",
             Language = entity.Language,
             Price = entity.Price,
             Tags = entity.Tags,

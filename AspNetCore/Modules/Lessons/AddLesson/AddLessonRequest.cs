@@ -10,7 +10,8 @@ public sealed record AddLessonRequest(
     string Description,
     PublicationStatus Status,
     TimeSpan Duration,
-    MediaType MediaType)
+    MediaType MediaType,
+    string Text = "")
 {
     public AddLessonCommand ToRequest(Guid courseId, Guid creatorId)
     {
@@ -20,6 +21,7 @@ public sealed record AddLessonRequest(
             Name,
             Summary,
             Description,
+            Text,
             Status,
             Duration,
             MediaType);

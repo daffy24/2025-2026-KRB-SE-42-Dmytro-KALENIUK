@@ -15,12 +15,15 @@ internal sealed class AddLessonHandler(EducationDbContext dbContext)
         var entity = new LessonEntity
         {
             Id = Guid.NewGuid(),
+            CourseId = request.CourseId,
             CreatorId = request.CreatorId,
             Name = request.Name,
             Summary = request.Summary,
             Description = request.Description,
+            Text = request.Text,
             Status = request.Status,
             Duration = request.Duration,
+            MediaType = request.MediaType,
             CreateTimestamp = timestamp,
             UpdateTimestamp = timestamp,
         };

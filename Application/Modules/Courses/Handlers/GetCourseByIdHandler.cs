@@ -21,6 +21,7 @@ internal sealed class GetCourseByIdHandler(EducationDbContext dbContext)
                 Name = x.Name,
                 Summary = x.Summary,
                 Description = x.Description,
+                PreviewImageUrl = x.PreviewImagePath == null ? null : $"/courses/{x.Id}/preview-image",
                 Language = x.Language,
                 Price = x.Price,
                 Tags = x.Tags,

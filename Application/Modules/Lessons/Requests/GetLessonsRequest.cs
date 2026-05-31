@@ -3,4 +3,7 @@ using MediatR;
 
 namespace Application.Modules.Lessons.Requests;
 
-public sealed record GetLessonsRequest(Guid CourseId) : IRequest<IReadOnlyCollection<Lesson>>;
+public sealed record GetLessonsRequest(
+    Guid CourseId,
+    Guid UserId,
+    bool CanManageAllLessons) : IRequest<GetLessonsResult>;

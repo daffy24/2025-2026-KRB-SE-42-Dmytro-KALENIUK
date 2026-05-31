@@ -47,16 +47,6 @@
                          "type":  "string"
                      },
                      {
-                         "key":  "accessToken",
-                         "value":  "",
-                         "type":  "string"
-                     },
-                     {
-                         "key":  "refreshToken",
-                         "value":  "",
-                         "type":  "string"
-                     },
-                     {
                          "key":  "keycloakApiClientId",
                          "value":  "education-api",
                          "type":  "string"
@@ -107,85 +97,6 @@
                                                                                     "pm.test(\"Status is 200\", function () {",
                                                                                     "  pm.response.to.have.status(200);",
                                                                                     "});"
-                                                                                ],
-                                                                       "type":  "text/javascript"
-                                                                   }
-                                                    }
-                                                ]
-                                  },
-                                  {
-                                      "name":  "Get Token by Password",
-                                      "request":  {
-                                                      "auth":  {
-                                                                   "type":  "noauth"
-                                                               },
-                                                      "method":  "POST",
-                                                      "header":  [
-                                                                     {
-                                                                         "key":  "Content-Type",
-                                                                         "value":  "application/x-www-form-urlencoded"
-                                                                     }
-                                                                 ],
-                                                      "body":  {
-                                                                   "mode":  "urlencoded",
-                                                                   "urlencoded":  [
-                                                                                      {
-                                                                                          "key":  "grant_type",
-                                                                                          "value":  "password",
-                                                                                          "type":  "text"
-                                                                                      },
-                                                                                      {
-                                                                                          "key":  "client_id",
-                                                                                          "value":  "{{keycloakPostmanClientId}}",
-                                                                                          "type":  "text"
-                                                                                      },
-                                                                                      {
-                                                                                          "key":  "username",
-                                                                                          "value":  "{{keycloakUsername}}",
-                                                                                          "type":  "text"
-                                                                                      },
-                                                                                      {
-                                                                                          "key":  "password",
-                                                                                          "value":  "{{keycloakPassword}}",
-                                                                                          "type":  "text"
-                                                                                      },
-                                                                                      {
-                                                                                          "key":  "scope",
-                                                                                          "value":  "openid profile email",
-                                                                                          "type":  "text"
-                                                                                      }
-                                                                                  ]
-                                                               },
-                                                      "url":  {
-                                                                  "raw":  "{{keycloakUrl}}/realms/{{keycloakRealm}}/protocol/openid-connect/token",
-                                                                  "host":  [
-                                                                               "{{keycloakUrl}}"
-                                                                           ],
-                                                                  "path":  [
-                                                                               "realms",
-                                                                               "{{keycloakRealm}}",
-                                                                               "protocol",
-                                                                               "openid-connect",
-                                                                               "token"
-                                                                           ]
-                                                              }
-                                                  },
-                                      "event":  [
-                                                    {
-                                                        "listen":  "test",
-                                                        "script":  {
-                                                                       "exec":  [
-                                                                                    "pm.test(\"Status is 200\", function () {",
-                                                                                    "  pm.response.to.have.status(200);",
-                                                                                    "});",
-                                                                                    "",
-                                                                                    "const json = pm.response.json();",
-                                                                                    "if (json.access_token) {",
-                                                                                    "  pm.collectionVariables.set(\"accessToken\", json.access_token);",
-                                                                                    "}",
-                                                                                    "if (json.refresh_token) {",
-                                                                                    "  pm.collectionVariables.set(\"refreshToken\", json.refresh_token);",
-                                                                                    "}"
                                                                                 ],
                                                                        "type":  "text/javascript"
                                                                    }
@@ -435,17 +346,7 @@
                                                     }
                                                 ]
                                   }
-                              ],
-                     "auth":  {
-                                  "type":  "bearer",
-                                  "bearer":  [
-                                                 {
-                                                     "key":  "token",
-                                                     "value":  "{{accessToken}}",
-                                                     "type":  "string"
-                                                 }
-                                             ]
-                              }
+                              ]
                  },
                  {
                      "name":  "Subscriptions",
@@ -594,17 +495,7 @@
                                                     }
                                                 ]
                                   }
-                              ],
-                     "auth":  {
-                                  "type":  "bearer",
-                                  "bearer":  [
-                                                 {
-                                                     "key":  "token",
-                                                     "value":  "{{accessToken}}",
-                                                     "type":  "string"
-                                                 }
-                                             ]
-                              }
+                              ]
                  },
                  {
                      "name":  "Lessons",
@@ -811,17 +702,7 @@
                                                     }
                                                 ]
                                   }
-                              ],
-                     "auth":  {
-                                  "type":  "bearer",
-                                  "bearer":  [
-                                                 {
-                                                     "key":  "token",
-                                                     "value":  "{{accessToken}}",
-                                                     "type":  "string"
-                                                 }
-                                             ]
-                              }
+                              ]
                  }
              ],
     "auth":  {

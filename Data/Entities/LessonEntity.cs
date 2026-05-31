@@ -18,6 +18,12 @@ public sealed class LessonEntity
     public Guid Id { get; set; }
 
     /// <summary>
+    /// The unique course identifier.
+    /// </summary>
+    [Column("course_id")]
+    public Guid? CourseId { get; set; }
+
+    /// <summary>
     /// The unique course creator identifier.
     /// </summary>
     [Column("creator_id")]
@@ -42,6 +48,12 @@ public sealed class LessonEntity
     public string Description { get; set; } = null!;
 
     /// <summary>
+    /// The lesson text content.
+    /// </summary>
+    [Column("text")]
+    public string Text { get; set; } = string.Empty;
+
+    /// <summary>
     /// The current status of the lesson.
     /// </summary>
     [Column("status")]
@@ -64,4 +76,27 @@ public sealed class LessonEntity
     /// </summary>
     [Column("duration")]
     public TimeSpan Duration { get; set; }
+
+    /// <summary>
+    /// The type of media used for this lesson.
+    /// </summary>
+    [Column("media_type")]
+    public MediaType MediaType { get; set; }
+
+    /// <summary>
+    /// The lesson video file path.
+    /// </summary>
+    [Column("video_path")]
+    public string? VideoPath { get; set; }
+
+    /// <summary>
+    /// The lesson video content type.
+    /// </summary>
+    [Column("video_content_type")]
+    public string? VideoContentType { get; set; }
+
+    /// <summary>
+    /// The course that owns the lesson.
+    /// </summary>
+    public CourseEntity? Course { get; set; }
 }

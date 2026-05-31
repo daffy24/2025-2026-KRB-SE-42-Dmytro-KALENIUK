@@ -34,6 +34,11 @@ public sealed class Course
     public string Description { get; set; } = null!;
 
     /// <summary>
+    /// The URL of the course preview image.
+    /// </summary>
+    public string? PreviewImageUrl { get; init; }
+
+    /// <summary>
     /// The language of the course.
     /// </summary>
     public string Language { get; set; } = null!;

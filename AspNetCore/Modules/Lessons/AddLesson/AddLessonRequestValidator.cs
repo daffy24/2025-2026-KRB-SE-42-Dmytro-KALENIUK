@@ -22,6 +22,10 @@ public sealed class AddLessonRequestValidator : AbstractValidator<AddLessonReque
             .MaximumLength(10_000)
             .WithMessage("Lesson description must be less than 10000 characters.");
 
+        RuleFor(x => x.Text)
+            .MaximumLength(50_000)
+            .WithMessage("Lesson text must be less than 50000 characters.");
+
         RuleFor(x => x.Duration)
             .GreaterThan(TimeSpan.Zero)
             .WithMessage("Lesson duration must be greater than zero.");

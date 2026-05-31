@@ -51,7 +51,7 @@ public sealed class SubscriptionEntity
     /// The current status of the subscription.
     /// </summary>
     [Column("status")]
-    public SubscriptionStatus Status { get; init; }
+    public SubscriptionStatus Status { get; set; }
 
     /// <summary>
     /// The subscription course.

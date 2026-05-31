@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Modules.Courses.Models;
 using Application.Modules.Courses.Requests;
-using EducationPlatform.Modules;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

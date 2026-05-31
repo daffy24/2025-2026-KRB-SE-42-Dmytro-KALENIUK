@@ -70,7 +70,7 @@ Use the existing Postman collection with:
 
 - `baseUrl`: `http://localhost:5045`
 - `keycloakUrl`: `http://localhost:8080`
-- `keycloakRealm`: `education-platform`
+- `keycloakRealm`: `Education platform`
 - `keycloakPostmanClientId`: `education-postman`
 
 Use collection Authorization with OAuth 2.0 Authorization Code with PKCE.

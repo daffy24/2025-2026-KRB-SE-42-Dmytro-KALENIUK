@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data;
 using EducationPlatform.Files;
-using EducationPlatform.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;

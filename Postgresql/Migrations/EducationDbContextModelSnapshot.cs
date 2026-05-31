@@ -87,6 +87,34 @@ namespace PostgreSql.Migrations
                     b.ToTable("courses");
                 });
 
+            modelBuilder.Entity("Data.Entities.CreatorAccessPurchaseEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric")
+                        .HasColumnName("amount");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<DateTimeOffset>("Timespan")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("timespan");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("creator_access_purchases");
+                });
+
             modelBuilder.Entity("Data.Entities.CreatorEntity", b =>
                 {
                     b.Property<Guid>("Id")

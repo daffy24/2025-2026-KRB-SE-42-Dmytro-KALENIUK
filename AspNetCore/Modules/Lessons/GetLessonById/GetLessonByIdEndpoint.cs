@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Application.Modules.Lessons.Models;
 using Application.Modules.Lessons.Requests;
 using EducationPlatform.Extensions;
-using EducationPlatform.Modules;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;

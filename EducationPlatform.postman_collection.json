@@ -60,6 +60,16 @@
                          "key":  "subscriptionId",
                          "value":  "",
                          "type":  "string"
+                     },
+                     {
+                         "key":  "coursePreviewImageFile",
+                         "value":  "C:\\temp\\course-preview.png",
+                         "type":  "string"
+                     },
+                     {
+                         "key":  "lessonVideoFile",
+                         "value":  "C:\\temp\\lesson-video.mp4",
+                         "type":  "string"
                      }
                  ],
     "item":  [
@@ -345,6 +355,82 @@
                                                                    }
                                                     }
                                                 ]
+                                  },
+                                  {
+                                      "name":  "Upload Course Preview Image",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "formdata",
+                                                                   "formdata":  [
+                                                                                    {
+                                                                                        "key":  "file",
+                                                                                        "type":  "file",
+                                                                                        "src":  "{{coursePreviewImageFile}}"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{courseId}}/preview-image",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{courseId}}",
+                                                                               "preview-image"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Get Course Preview Image",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/courses/{{courseId}}/preview-image",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "courses",
+                                                                               "{{courseId}}",
+                                                                               "preview-image"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
                                   }
                               ]
                  },
@@ -545,7 +631,7 @@
                                                                  ],
                                                       "body":  {
                                                                    "mode":  "raw",
-                                                                   "raw":  "{\n  \"name\": \"Variables and Types\",\n  \"summary\": \"Basic variables and primitive types.\",\n  \"description\": \"This lesson explains variable declarations, primitive types and common conversion cases.\",\n  \"status\": 0,\n  \"duration\": \"00:15:00\",\n  \"mediaType\": 2\n}"
+                                                                  "raw":  "{\n  \"name\": \"Variables and Types\",\n  \"summary\": \"Basic variables and primitive types.\",\n  \"description\": \"This lesson explains variable declarations, primitive types and common conversion cases.\",\n  \"text\": \"Lesson text content for students who have access to this course.\",\n  \"status\": 0,\n  \"duration\": \"00:15:00\",\n  \"mediaType\": 2\n}"
                                                                },
                                                       "url":  {
                                                                   "raw":  "{{baseUrl}}/courses/{{courseId}}/lessons",
@@ -695,6 +781,82 @@
                                                                        "exec":  [
                                                                                     "pm.test(\"Status is 204 or 404\", function () {",
                                                                                     "  pm.expect([204, 404]).to.include(pm.response.code);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Upload Lesson Video",
+                                      "request":  {
+                                                      "method":  "POST",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "body":  {
+                                                                   "mode":  "formdata",
+                                                                   "formdata":  [
+                                                                                    {
+                                                                                        "key":  "file",
+                                                                                        "type":  "file",
+                                                                                        "src":  "{{lessonVideoFile}}"
+                                                                                    }
+                                                                                ]
+                                                               },
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/lessons/{{lessonId}}/video",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "lessons",
+                                                                               "{{lessonId}}",
+                                                                               "video"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
+                                                                                    "});"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   }
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Get Lesson Video",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "header":  [
+
+                                                                 ],
+                                                      "url":  {
+                                                                  "raw":  "{{baseUrl}}/lessons/{{lessonId}}/video",
+                                                                  "host":  [
+                                                                               "{{baseUrl}}"
+                                                                           ],
+                                                                  "path":  [
+                                                                               "lessons",
+                                                                               "{{lessonId}}",
+                                                                               "video"
+                                                                           ]
+                                                              }
+                                                  },
+                                      "event":  [
+                                                    {
+                                                        "listen":  "test",
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "pm.test(\"Status is 200\", function () {",
+                                                                                    "  pm.response.to.have.status(200);",
                                                                                     "});"
                                                                                 ],
                                                                        "type":  "text/javascript"

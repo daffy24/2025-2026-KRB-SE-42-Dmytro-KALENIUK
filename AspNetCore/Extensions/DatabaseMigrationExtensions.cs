@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -13,6 +14,11 @@ internal static class DatabaseMigrationExtensions
     public static async Task MigrateDatabaseAsync(this WebApplication app)
     {
         const int maxAttempts = 10;
+
+        if (!app.Configuration.GetValue("Database:ApplyMigrations", true))
+        {
+            return;
+        }
 
         await using var scope = app.Services.CreateAsyncScope();
         var logger = scope.ServiceProvider

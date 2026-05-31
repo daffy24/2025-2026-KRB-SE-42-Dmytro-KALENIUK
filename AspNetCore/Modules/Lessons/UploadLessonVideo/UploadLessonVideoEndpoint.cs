@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +9,6 @@ using Data;
 using EducationPlatform.Authentication;
 using EducationPlatform.Extensions;
 using EducationPlatform.Files;
-using EducationPlatform.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -32,7 +32,7 @@ internal sealed class UploadLessonVideoEndpoint : IEndpoint
 
     private static async Task<Results<Ok<Lesson>, BadRequest<string>, NotFound, ForbidHttpResult>> Handle(
         [FromRoute] Guid lessonId,
-        [FromForm] IFormFile? file,
+        IFormFile? file,
         ClaimsPrincipal user,
         EducationDbContext dbContext,
         IFileStorage fileStorage,
@@ -79,9 +79,13 @@ internal sealed class UploadLessonVideoEndpoint : IEndpoint
 
     private static bool IsVideo(IFormFile? file)
     {
+        var extension = (Path.GetExtension(file?.FileName) ?? string.Empty).ToLowerInvariant();
+
         return file is not null &&
                file.Length > 0 &&
                file.Length <= 500 * 1024 * 1024 &&
-               file.ContentType.StartsWith("video/", StringComparison.OrdinalIgnoreCase);
+               file.ContentType is not null &&
+               file.ContentType.StartsWith("video/", StringComparison.OrdinalIgnoreCase) &&
+               extension is ".mp4" or ".webm" or ".mov";
     }
 }

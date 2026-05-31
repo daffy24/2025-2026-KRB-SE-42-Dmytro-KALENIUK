@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,8 +8,6 @@ using Data;
 using EducationPlatform.Authentication;
 using EducationPlatform.Extensions;
 using EducationPlatform.Files;
-using EducationPlatform.Modules;
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -32,7 +31,7 @@ internal sealed class UploadCoursePreviewImageEndpoint : IEndpoint
 
     private static async Task<Results<Ok<Course>, BadRequest<string>, NotFound, ForbidHttpResult>> Handle(
         [FromRoute] Guid courseId,
-        [FromForm] IFormFile? file,
+        IFormFile? file,
         ClaimsPrincipal user,
         EducationDbContext dbContext,
         IFileStorage fileStorage,
@@ -77,9 +76,13 @@ internal sealed class UploadCoursePreviewImageEndpoint : IEndpoint
 
     private static bool IsImage(IFormFile? file)
     {
+        var extension = (Path.GetExtension(file?.FileName) ?? string.Empty).ToLowerInvariant();
+
         return file is not null &&
                file.Length > 0 &&
                file.Length <= 10 * 1024 * 1024 &&
-               file.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase);
+               file.ContentType is not null &&
+               file.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase) &&
+               extension is ".jpg" or ".jpeg" or ".png" or ".webp";
     }
 }

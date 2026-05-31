@@ -28,6 +28,11 @@ public class EducationDbContext(DbContextOptions<EducationDbContext> options) : 
     /// </summary>
     public DbSet<CreatorEntity> Creators { get; set; }
 
+    /// <summary>
+    /// The data set to be used to operate with <see cref="CreatorAccessPurchaseEntity"/> entities.
+    /// </summary>
+    public DbSet<CreatorAccessPurchaseEntity> CreatorAccessPurchases { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EducationDbContext).Assembly);

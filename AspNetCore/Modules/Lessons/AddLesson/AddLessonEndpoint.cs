@@ -7,7 +7,6 @@ using Application.Modules.Lessons.Models;
 using Data;
 using EducationPlatform.Authentication;
 using EducationPlatform.Extensions;
-using EducationPlatform.Modules;
 using EducationPlatform.Modules.Lessons.GetLessonById;
 using FluentValidation;
 using MediatR;

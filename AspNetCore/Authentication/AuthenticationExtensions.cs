@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -72,7 +73,7 @@ internal static class AuthenticationExtensions
         services.AddAuthorization(options =>
         {
             options.AddPolicy(AuthPolicies.CreatorOnly, policy =>
-                policy.RequireRole("creator", "admin"));
+                policy.Requirements.Add(new CreatorAccessRequirement()));
 
             options.AddPolicy(AuthPolicies.AdminOnly, policy =>
                 policy.RequireRole("admin"));
@@ -80,6 +81,8 @@ internal static class AuthenticationExtensions
             options.AddPolicy(AuthPolicies.StudentOrCreatorOnly, policy =>
                 policy.RequireRole("student", "creator"));
         });
+
+        services.AddScoped<IAuthorizationHandler, CreatorAccessRequirementHandler>();
 
         return services;
     }

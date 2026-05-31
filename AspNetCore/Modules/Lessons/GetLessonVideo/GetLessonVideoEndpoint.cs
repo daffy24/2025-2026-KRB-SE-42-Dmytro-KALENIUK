@@ -8,7 +8,6 @@ using Common.Models;
 using Data;
 using EducationPlatform.Extensions;
 using EducationPlatform.Files;
-using EducationPlatform.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;

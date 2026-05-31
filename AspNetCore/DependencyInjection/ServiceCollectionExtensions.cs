@@ -1,5 +1,7 @@
 using Application.Modules.Courses.Requests;
 using EducationPlatform.Modules;
+using EducationPlatform.Modules.CreatorAccess.ActivateCreatorAccessPurchase;
+using EducationPlatform.Modules.CreatorAccess.AddCreatorAccessPurchase;
 using EducationPlatform.Modules.Courses.AddCourse;
 using EducationPlatform.Modules.Courses.DeleteCourse;
 using EducationPlatform.Modules.Courses.GetCoursePreviewImage;
@@ -14,10 +16,10 @@ using EducationPlatform.Modules.Lessons.GetLessonById;
 using EducationPlatform.Modules.Lessons.GetLessons;
 using EducationPlatform.Modules.Lessons.GetLessonVideo;
 using EducationPlatform.Modules.Lessons.UploadLessonVideo;
+using EducationPlatform.Modules.Subscriptions.ActivateSubscription;
 using EducationPlatform.Modules.Subscriptions.AddSubscription;
 using EducationPlatform.Modules.Subscriptions.GetSubscriptions;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EducationPlatform.DependencyInjection;
@@ -44,7 +46,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IEndpoint, DeleteLessonEndpoint>();
         services.AddSingleton<IEndpoint, UploadLessonVideoEndpoint>();
 
+        services.AddSingleton<IEndpoint, AddCreatorAccessPurchaseEndpoint>();
+        services.AddSingleton<IEndpoint, ActivateCreatorAccessPurchaseEndpoint>();
+
         services.AddSingleton<IEndpoint, AddSubscriptionEndpoint>();
+        services.AddSingleton<IEndpoint, ActivateSubscriptionEndpoint>();
         services.AddSingleton<IEndpoint, GetSubscriptionsEndpoint>();
 
         services.AddScoped<IValidator<AddCourseRequest>, AddCourseRequestValidator>();
